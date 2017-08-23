@@ -8,14 +8,23 @@ class Clock extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            date:new Date()
+            date:new Date(),
+            getData:""
         }
     }
     componentDidMount(){
         this.timerId = setInterval(()=>this.tick(),1000)
+        axios.get('http://www.ezhi.net/api/test/index.php?a=get_users&uid=10003')
+        .then((response)=>{
+            console.log(response)
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
     }
     componentWillUnmount(){
         clearInterval(this.timerId)
+
     }
     tick(){
         this.setState({
