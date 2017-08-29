@@ -3,46 +3,57 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 
+let teamate = [
+    {
+        name:"youming",
+        age : 18
+    },
+    {
+        name : "wujia",
+        age : "18"
+    }
+]
 
 class Clock extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-            date:new Date(),
-            getData:""
+        this.state={
+            teamate : this.props.teamate
         }
     }
-    componentDidMount(){
-        this.timerId = setInterval(()=>this.tick(),1000)
-        axios.get('http://www.ezhi.net/api/test/index.php?a=get_users&uid=10003')
-        .then((response)=>{
-            console.log(response)
-        })
-        .catch((error)=>{
+    componentWillMount(){
+        var params = 'key='+JSON.stringify({"name":"tom","age":26});
+        axios.post('http://localhost:3300/api.php',params)
+        .then((res)=>{
+            console.log(res.data)
+        }).catch((error)=>{
             console.log(error)
-        })
-    }
-    componentWillUnmount(){
-        clearInterval(this.timerId)
-
-    }
-    tick(){
-        this.setState({
-            date:new Date()
         })
     }
     render(){
         return (
             <div>
                 <h1>hello world</h1>
-                <h2>it is now {this.state.date.toLocaleTimeString()}</h2>
+                {this.state.teamate.map((item,index)=>{
+                   return  <h2 key={index}>{item.name} {item.age}</h2>
+                })}
+                <h2>项目经理：{this.props.leader}</h2>
+                <input type="button" value="改变" onClick={()=>{
+                    var getSate = this.state.teamate;
+                    getSate[0].name="zhangfei";
+                    {/* this.setState({
+                        teamate:getSate
+                    }) */}
+                   
+                    this.forceUpdate()
+                }}/>
             </div>
         )
     }
 }
 
 ReactDOM.render(
-    <Clock />,
+    <Clock teamate={teamate} leader="youming"/>,
     document.getElementById('root')
 )
 
