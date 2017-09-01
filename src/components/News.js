@@ -3,7 +3,7 @@ import axios from 'axios';
 import Agree from './Agree';
 
 export default class News extends React.Component {
-    constructor(...props){
+    constructor(props){
         super(...props);
         this.state={
             agree:"",

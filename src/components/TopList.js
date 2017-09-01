@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default class TopList extends React.Component
 {
-    constructor(...props){
+    constructor(props){
         super(...props);
         this.state={
             dataList:[]

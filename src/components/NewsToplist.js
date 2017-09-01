@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+
 
 export default class NewsToplist extends React.Component
 {
-    constructor(...props){
+    constructor(props){
         super(...props);
         this.state={
             dataList:[]
@@ -27,7 +29,7 @@ export default class NewsToplist extends React.Component
                 {
                     this.state.dataList.map((item,index)=>{
                         return <dd key={index}>
-                                <a href="#">{item.title}</a>
+                                <Link to={'/news/'+item.newsid}>{item.title}</Link>
                                 <p>{item.desc}</p>
                             </dd>   
                     })
